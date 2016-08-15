@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4BEE4CE1D627EB8004D3012 /* boardedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */; };
 		C4DD64031D5AEC0A001C57D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD64021D5AEC0A001C57D7 /* AppDelegate.swift */; };
 		C4DD64051D5AEC0A001C57D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD64041D5AEC0A001C57D7 /* ViewController.swift */; };
 		C4DD64081D5AEC0A001C57D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DD64061D5AEC0A001C57D7 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boardedButton.swift; sourceTree = "<group>"; };
 		C4DD63FF1D5AEC0A001C57D7 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DD64021D5AEC0A001C57D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4DD64041D5AEC0A001C57D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4BEE4CC1D627E03004D3012 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C4DD63F61D5AEC0A001C57D7 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +107,7 @@
 		C4DD64011D5AEC0A001C57D7 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				C4BEE4CC1D627E03004D3012 /* View */,
 				C4DD64021D5AEC0A001C57D7 /* AppDelegate.swift */,
 				C4DD64041D5AEC0A001C57D7 /* ViewController.swift */,
 				C4DD64061D5AEC0A001C57D7 /* Main.storyboard */,
@@ -256,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BEE4CE1D627EB8004D3012 /* boardedButton.swift in Sources */,
 				C4DD64051D5AEC0A001C57D7 /* ViewController.swift in Sources */,
 				C4DD64031D5AEC0A001C57D7 /* AppDelegate.swift in Sources */,
 			);
@@ -484,6 +496,7 @@
 				C4DD64291D5AEC0A001C57D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C4DD642A1D5AEC0A001C57D7 /* Build configuration list for PBXNativeTarget "On The MapTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +505,7 @@
 				C4DD642C1D5AEC0A001C57D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C4DD642D1D5AEC0A001C57D7 /* Build configuration list for PBXNativeTarget "On The MapUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +514,7 @@
 				C4DD642F1D5AEC0A001C57D7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
