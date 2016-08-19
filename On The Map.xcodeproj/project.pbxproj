@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C49094E61D678E9600AD0FA7 /* udacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E51D678E9600AD0FA7 /* udacityConstants.swift */; };
 		C4BEE4CE1D627EB8004D3012 /* boardedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */; };
+		C4BEE5161D650283004D3012 /* udacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE5151D650283004D3012 /* udacityClient.swift */; };
+		C4BEE5181D652D7E004D3012 /* APICommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE5171D652D7E004D3012 /* APICommon.swift */; };
 		C4DD64031D5AEC0A001C57D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD64021D5AEC0A001C57D7 /* AppDelegate.swift */; };
-		C4DD64051D5AEC0A001C57D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD64041D5AEC0A001C57D7 /* ViewController.swift */; };
+		C4DD64051D5AEC0A001C57D7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD64041D5AEC0A001C57D7 /* LoginViewController.swift */; };
 		C4DD64081D5AEC0A001C57D7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DD64061D5AEC0A001C57D7 /* Main.storyboard */; };
 		C4DD640A1D5AEC0A001C57D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4DD64091D5AEC0A001C57D7 /* Assets.xcassets */; };
 		C4DD640D1D5AEC0A001C57D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4DD640B1D5AEC0A001C57D7 /* LaunchScreen.storyboard */; };
@@ -35,10 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C49094E51D678E9600AD0FA7 /* udacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = udacityConstants.swift; sourceTree = "<group>"; };
 		C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boardedButton.swift; sourceTree = "<group>"; };
+		C4BEE5151D650283004D3012 /* udacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = udacityClient.swift; sourceTree = "<group>"; };
+		C4BEE5171D652D7E004D3012 /* APICommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommon.swift; sourceTree = "<group>"; };
 		C4DD63FF1D5AEC0A001C57D7 /* On The Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On The Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DD64021D5AEC0A001C57D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C4DD64041D5AEC0A001C57D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C4DD64041D5AEC0A001C57D7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		C4DD64071D5AEC0A001C57D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C4DD64091D5AEC0A001C57D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4DD640C1D5AEC0A001C57D7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -84,6 +90,32 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		C4BEE5121D64F67C004D3012 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C4BEE5171D652D7E004D3012 /* APICommon.swift */,
+				C4BEE5131D64F693004D3012 /* Clients */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C4BEE5131D64F693004D3012 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				C4BEE5151D650283004D3012 /* udacityClient.swift */,
+				C49094E51D678E9600AD0FA7 /* udacityConstants.swift */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		C4BEE5141D64F6BE004D3012 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C4DD64041D5AEC0A001C57D7 /* LoginViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		C4DD63F61D5AEC0A001C57D7 = {
 			isa = PBXGroup;
 			children = (
@@ -107,9 +139,10 @@
 		C4DD64011D5AEC0A001C57D7 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				C4BEE5121D64F67C004D3012 /* Model */,
 				C4BEE4CC1D627E03004D3012 /* View */,
+				C4BEE5141D64F6BE004D3012 /* Controller */,
 				C4DD64021D5AEC0A001C57D7 /* AppDelegate.swift */,
-				C4DD64041D5AEC0A001C57D7 /* ViewController.swift */,
 				C4DD64061D5AEC0A001C57D7 /* Main.storyboard */,
 				C4DD64091D5AEC0A001C57D7 /* Assets.xcassets */,
 				C4DD640B1D5AEC0A001C57D7 /* LaunchScreen.storyboard */,
@@ -267,8 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4BEE5181D652D7E004D3012 /* APICommon.swift in Sources */,
+				C4BEE5161D650283004D3012 /* udacityClient.swift in Sources */,
 				C4BEE4CE1D627EB8004D3012 /* boardedButton.swift in Sources */,
-				C4DD64051D5AEC0A001C57D7 /* ViewController.swift in Sources */,
+				C49094E61D678E9600AD0FA7 /* udacityConstants.swift in Sources */,
+				C4DD64051D5AEC0A001C57D7 /* LoginViewController.swift in Sources */,
 				C4DD64031D5AEC0A001C57D7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
