@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C49094E61D678E9600AD0FA7 /* udacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E51D678E9600AD0FA7 /* udacityConstants.swift */; };
+		C49094E81D6B91BE00AD0FA7 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E71D6B91BE00AD0FA7 /* GCDBlackBox.swift */; };
+		C49094EA1D6BB49C00AD0FA7 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E91D6BB49C00AD0FA7 /* Student.swift */; };
 		C4BEE4CE1D627EB8004D3012 /* boardedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */; };
 		C4BEE5161D650283004D3012 /* udacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE5151D650283004D3012 /* udacityClient.swift */; };
 		C4BEE5181D652D7E004D3012 /* APICommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BEE5171D652D7E004D3012 /* APICommon.swift */; };
@@ -39,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		C49094E51D678E9600AD0FA7 /* udacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = udacityConstants.swift; sourceTree = "<group>"; };
+		C49094E71D6B91BE00AD0FA7 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		C49094E91D6BB49C00AD0FA7 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
 		C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = boardedButton.swift; sourceTree = "<group>"; };
 		C4BEE5151D650283004D3012 /* udacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = udacityClient.swift; sourceTree = "<group>"; };
 		C4BEE5171D652D7E004D3012 /* APICommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICommon.swift; sourceTree = "<group>"; };
@@ -93,6 +97,7 @@
 		C4BEE5121D64F67C004D3012 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C49094E91D6BB49C00AD0FA7 /* Student.swift */,
 				C4BEE5171D652D7E004D3012 /* APICommon.swift */,
 				C4BEE5131D64F693004D3012 /* Clients */,
 			);
@@ -139,6 +144,7 @@
 		C4DD64011D5AEC0A001C57D7 /* On The Map */ = {
 			isa = PBXGroup;
 			children = (
+				C49094E71D6B91BE00AD0FA7 /* GCDBlackBox.swift */,
 				C4BEE5121D64F67C004D3012 /* Model */,
 				C4BEE4CC1D627E03004D3012 /* View */,
 				C4BEE5141D64F6BE004D3012 /* Controller */,
@@ -306,6 +312,8 @@
 				C49094E61D678E9600AD0FA7 /* udacityConstants.swift in Sources */,
 				C4DD64051D5AEC0A001C57D7 /* LoginViewController.swift in Sources */,
 				C4DD64031D5AEC0A001C57D7 /* AppDelegate.swift in Sources */,
+				C49094E81D6B91BE00AD0FA7 /* GCDBlackBox.swift in Sources */,
+				C49094EA1D6BB49C00AD0FA7 /* Student.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

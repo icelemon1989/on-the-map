@@ -47,14 +47,14 @@ class LoginViewController: UIViewController {
             debugLabel.text = "missing email or password"
         } else {
             UdacityClient.loginWithUsername(emailTextField.text!, password: passwordTextField.text!, completeHandler: { (userKey, error) in
-                dispatch_async(dispatch_get_main_queue()) {
+                performUIUpdatesOnMain({
                     if let key = userKey {
                         self.debugLabel.text = key
                     } else {
                         print(error)
                         self.debugLabel.text = error?.localizedDescription
                     }
-                }
+                })
             })
         }
         
