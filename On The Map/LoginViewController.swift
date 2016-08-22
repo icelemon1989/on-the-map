@@ -61,7 +61,9 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func signUpButtonPressed(sender: UIButton) {
-        //TODO: sign up activity
+        if let signUpURL = NSURL(string: udacityClient.Common.signUpURL) where UIApplication.sharedApplication().canOpenURL(signUpURL) {
+            UIApplication.sharedApplication().openURL(signUpURL)
+        }
     }
     
     

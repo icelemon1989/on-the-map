@@ -69,5 +69,11 @@ extension udacityClient {
         static let UnableToLogout = "Unable to logout."
         static let NoUserData = "Cannot access user data."
     }
+    
+    //MARK: Common
+    
+    struct Common {
+        static let signUpURL = "https://www.udacity.com/account/auth#!/signup"
+    }
 
 }
