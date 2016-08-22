@@ -36,16 +36,18 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sQa-GD-zXg">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sQa-GD-zXg">
                                         <rect key="frame" x="0.0" y="208" width="560" height="50"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="yIU-Oc-5lc"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RjH-zp-fzo">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RjH-zp-fzo">
                                         <rect key="frame" x="0.0" y="262" width="560" height="50"/>
+                                        <gestureRecognizers/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -99,7 +101,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHg-py-rrd" userLabel="Error Label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sHg-py-rrd" userLabel="Error Label">
                                         <rect key="frame" x="0.0" y="404" width="560" height="92"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -131,20 +133,30 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.88235294117647056" green="0.53725490196078429" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="NEM-QQ-HXn" secondAttribute="trailing" id="0BO-5J-swu"/>
                             <constraint firstItem="NEM-QQ-HXn" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="KWb-vr-tdL"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="NEM-QQ-HXn" secondAttribute="bottom" constant="20" id="aKT-f3-xru"/>
                             <constraint firstItem="NEM-QQ-HXn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="eSb-fa-SNc"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Gzn-TL-0hk" appends="YES" id="Jix-3W-iKe"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="debugLabel" destination="sHg-py-rrd" id="Pe9-bM-RzD"/>
                         <outlet property="emailTextField" destination="sQa-GD-zXg" id="zU1-cS-ZzS"/>
                         <outlet property="passwordTextField" destination="RjH-zp-fzo" id="jWb-kw-rGk"/>
+                        <outlet property="udacityImage" destination="bBV-aV-s0H" id="Pvf-Tj-8HH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Gzn-TL-0hk">
+                    <connections>
+                        <action selector="userDidTap:" destination="BYZ-38-t0r" id="vlq-c9-u3j"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3" y="305"/>
         </scene>

@@ -15,8 +15,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var debugLabel: UILabel!
+    @IBOutlet weak var udacityImage: UIImageView!
     
     // MARK: Properties
+    private var keyboardOnScreen = false
+    
     private let UdacityClient = udacityClient.sharedClient()
     
     //MARK: Life Cycle
@@ -24,6 +27,16 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        subscribeToNotification(UIKeyboardWillShowNotification, selector: #selector(keyboardWillShow))
+        subscribeToNotification(UIKeyboardWillHideNotification, selector: #selector(keyboardWillHide))
+        subscribeToNotification(UIKeyboardDidShowNotification, selector: #selector(keyboardDidShow))
+        subscribeToNotification(UIKeyboardDidHideNotification, selector: #selector(keyboardDidHide))
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromAllNotifications()
     }
 
     //MARK: Action
@@ -49,6 +62,77 @@ class LoginViewController: UIViewController {
 
     @IBAction func signUpButtonPressed(sender: UIButton) {
         //TODO: sign up activity
+    }
+    
+    
+}
+
+// MARK: - LoginViewController: UITextFieldDelegate
+
+extension LoginViewController : UITextFieldDelegate {
+    
+    // MARK: UITextFieldDelegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // MARK: Show/Hide Keyboard
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if !keyboardOnScreen {
+            view.frame.origin.y -= keyboardHeight(notification)
+            udacityImage.hidden = true
+            
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if keyboardOnScreen {
+            view.frame.origin.y = 0
+            udacityImage.hidden = false
+    
+        }
+    }
+    
+    func keyboardDidShow(notification: NSNotification) {
+        keyboardOnScreen = true
+    }
+    
+    func keyboardDidHide(notification: NSNotification) {
+        keyboardOnScreen = false
+    }
+    
+    private func keyboardHeight(notification: NSNotification) -> CGFloat {
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.CGRectValue().height
+    }
+    
+    private func resignIfFirstResponder(textField: UITextField) {
+        if textField.isFirstResponder() {
+            textField.resignFirstResponder()
+        }
+    }
+    
+    @IBAction func userDidTap(sender: AnyObject) {
+        resignIfFirstResponder(emailTextField)
+        resignIfFirstResponder(passwordTextField)
+    }
+    
+}
+
+// MARK: - LoginViewController (Notifications)
+
+extension LoginViewController {
+    
+    private func subscribeToNotification(notification: String, selector: Selector) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: selector, name: notification, object: nil)
+    }
+    
+    private func unsubscribeFromAllNotifications() {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }
 
