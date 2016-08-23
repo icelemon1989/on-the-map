@@ -87,7 +87,39 @@ class udacityClient {
             
         }
 
-
+    }
+    
+    // MARK: GET Student Data  
+    
+    func studentWithUserKey(userKey: String, completeHandler:(student: Student?, error: NSError?) -> Void) {
+        
+        let studentDataURL = apiCommon.urlFromParameters(Methods.Users, withPathExtension: "/\(userKey)")
+        
+        makeRequestForUdacity(url: studentDataURL, method: .GET) { (jsonAsDictionary, error) in
+            if let error = error {
+                completeHandler(student: nil, error: error)
+            } else {
+                //success
+                if let dic = jsonAsDictionary {
+                    guard let user = dic[JSONResponseKeys.User] as? [String: AnyObject] else {
+                        print("no found \(JSONResponseKeys.User) in \(dic)")
+                        return
+                    }
+                    guard let first = user[JSONResponseKeys.FirstName] as? String else {
+                        print("no found \(JSONResponseKeys.FirstName) in \(user)")
+                        return
+                    }
+                    guard let last = user[JSONResponseKeys.LastName] as? String else {
+                        print("no found \(JSONResponseKeys.LastName) in \(user)")
+                        return
+                    }
+                    let student = Student(uniqueKey: userKey, FirstName: first, LastName: last, mediaURL: "")
+                    completeHandler(student: student, error: nil)
+                }
+                
+            }
+        }
+        
     }
     
     

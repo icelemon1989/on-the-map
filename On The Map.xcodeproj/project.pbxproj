@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C47EE05C1D6C954D00DED681 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47EE05B1D6C954D00DED681 /* MapViewController.swift */; };
+		C47EE05E1D6C9ACD00DED681 /* StudentLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47EE05D1D6C9ACD00DED681 /* StudentLocationTableViewCell.swift */; };
 		C49094E61D678E9600AD0FA7 /* udacityConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E51D678E9600AD0FA7 /* udacityConstants.swift */; };
 		C49094E81D6B91BE00AD0FA7 /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E71D6B91BE00AD0FA7 /* GCDBlackBox.swift */; };
 		C49094EA1D6BB49C00AD0FA7 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49094E91D6BB49C00AD0FA7 /* Student.swift */; };
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C47EE05B1D6C954D00DED681 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		C47EE05D1D6C9ACD00DED681 /* StudentLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationTableViewCell.swift; sourceTree = "<group>"; };
 		C49094E51D678E9600AD0FA7 /* udacityConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = udacityConstants.swift; sourceTree = "<group>"; };
 		C49094E71D6B91BE00AD0FA7 /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 		C49094E91D6BB49C00AD0FA7 /* Student.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Student.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				C4BEE4CD1D627EB8004D3012 /* boardedButton.swift */,
+				C47EE05D1D6C9ACD00DED681 /* StudentLocationTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				C4DD64041D5AEC0A001C57D7 /* LoginViewController.swift */,
+				C47EE05B1D6C954D00DED681 /* MapViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -306,10 +312,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47EE05E1D6C9ACD00DED681 /* StudentLocationTableViewCell.swift in Sources */,
 				C4BEE5181D652D7E004D3012 /* APICommon.swift in Sources */,
 				C4BEE5161D650283004D3012 /* udacityClient.swift in Sources */,
 				C4BEE4CE1D627EB8004D3012 /* boardedButton.swift in Sources */,
 				C49094E61D678E9600AD0FA7 /* udacityConstants.swift in Sources */,
+				C47EE05C1D6C954D00DED681 /* MapViewController.swift in Sources */,
 				C4DD64051D5AEC0A001C57D7 /* LoginViewController.swift in Sources */,
 				C4DD64031D5AEC0A001C57D7 /* AppDelegate.swift in Sources */,
 				C49094E81D6B91BE00AD0FA7 /* GCDBlackBox.swift in Sources */,

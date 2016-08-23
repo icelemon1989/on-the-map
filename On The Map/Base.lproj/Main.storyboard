@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yZ0-Ah-d2h">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -149,6 +150,7 @@
                         <outlet property="emailTextField" destination="sQa-GD-zXg" id="zU1-cS-ZzS"/>
                         <outlet property="passwordTextField" destination="RjH-zp-fzo" id="jWb-kw-rGk"/>
                         <outlet property="udacityImage" destination="bBV-aV-s0H" id="Pvf-Tj-8HH"/>
+                        <segue destination="yZ0-Ah-d2h" kind="show" identifier="login" id="0FE-QJ-ifx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -179,7 +181,7 @@
         <!--Map-->
         <scene sceneID="E8f-Jd-mdk">
             <objects>
-                <viewController id="dqW-vq-S8k" sceneMemberID="viewController">
+                <viewController id="dqW-vq-S8k" customClass="MapViewController" customModule="On_The_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="E7r-2N-MDU"/>
                         <viewControllerLayoutGuide type="bottom" id="Wmr-ob-QOQ"/>
@@ -187,9 +189,23 @@
                     <view key="view" contentMode="scaleToFill" id="VS2-mf-Z6c">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="abY-h9-aBa">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="abY-h9-aBa" secondAttribute="trailing" id="WpO-pU-AO7"/>
+                            <constraint firstItem="abY-h9-aBa" firstAttribute="bottom" secondItem="Wmr-ob-QOQ" secondAttribute="top" id="iWn-ha-Q1G"/>
+                            <constraint firstItem="abY-h9-aBa" firstAttribute="leading" secondItem="VS2-mf-Z6c" secondAttribute="leading" id="lyI-bF-ydD"/>
+                            <constraint firstItem="abY-h9-aBa" firstAttribute="top" secondItem="E7r-2N-MDU" secondAttribute="bottom" id="zA3-kP-WDI"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="VK4-Di-B0A"/>
+                    <connections>
+                        <outlet property="mapView" destination="abY-h9-aBa" id="HDr-yq-tm7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATM-VU-ZTd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -199,18 +215,73 @@
         <scene sceneID="wbS-CX-L40">
             <objects>
                 <tableViewController id="FWF-8g-9HR" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="UZg-On-aLs">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="67" sectionHeaderHeight="28" sectionFooterHeight="28" id="UZg-On-aLs">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pvD-8X-mJR">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="69" id="pvD-8X-mJR" customClass="StudentLocationTableViewCell" customModule="On_The_Map" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pvD-8X-mJR" id="M1l-1J-5Ds">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eP8-aJ-pXu">
+                                            <rect key="frame" x="8" y="8" width="584" height="53"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FPv-UM-olg">
+                                                    <rect key="frame" x="0.0" y="0.0" width="53" height="53"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="53" id="wIr-Xv-k26"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="2rz-wH-e5U">
+                                                    <rect key="frame" x="61" y="0.0" width="523" height="53"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Summer Ji" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-wT-0RW">
+                                                            <rect key="frame" x="0.0" y="0.0" width="523" height="27"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="27" id="4zY-gk-Ld1"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="254" text="https://www.udacity.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D8D-SB-WWU">
+                                                            <rect key="frame" x="0.0" y="33" width="523" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="FPv-UM-olg" secondAttribute="bottom" id="0ju-LF-yM3"/>
+                                                <constraint firstItem="2rz-wH-e5U" firstAttribute="top" secondItem="eP8-aJ-pXu" secondAttribute="top" id="5x6-1v-8D2"/>
+                                                <constraint firstItem="FPv-UM-olg" firstAttribute="top" secondItem="eP8-aJ-pXu" secondAttribute="top" id="Ded-Aa-JqU"/>
+                                                <constraint firstItem="2rz-wH-e5U" firstAttribute="leading" secondItem="FPv-UM-olg" secondAttribute="trailing" constant="8" id="Ec3-G4-NCz"/>
+                                                <constraint firstAttribute="trailing" secondItem="2rz-wH-e5U" secondAttribute="trailing" id="L21-fm-MOC"/>
+                                                <constraint firstItem="2rz-wH-e5U" firstAttribute="leading" secondItem="FPv-UM-olg" secondAttribute="trailing" constant="8" id="Lm1-rj-o2g"/>
+                                                <constraint firstItem="FPv-UM-olg" firstAttribute="leading" secondItem="eP8-aJ-pXu" secondAttribute="leading" id="ejx-4C-dEb"/>
+                                                <constraint firstAttribute="bottom" secondItem="2rz-wH-e5U" secondAttribute="bottom" id="qOs-Vk-J3s"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="eP8-aJ-pXu" firstAttribute="leading" secondItem="M1l-1J-5Ds" secondAttribute="leadingMargin" id="Rey-cR-oFQ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eP8-aJ-pXu" secondAttribute="bottom" id="WiQ-gr-LdV"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eP8-aJ-pXu" secondAttribute="bottom" id="fea-vA-hmR"/>
+                                        <constraint firstItem="eP8-aJ-pXu" firstAttribute="top" secondItem="M1l-1J-5Ds" secondAttribute="topMargin" id="i1J-0o-GEL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eP8-aJ-pXu" secondAttribute="trailing" id="tFz-ol-GuM"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="studentImage" destination="FPv-UM-olg" id="iIM-kI-tZp"/>
+                                    <outlet property="studentNameLabel" destination="sIk-wT-0RW" id="IM1-lr-4kD"/>
+                                    <outlet property="studentURLLabel" destination="D8D-SB-WWU" id="h2G-by-pfd"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -228,7 +299,13 @@
         <scene sceneID="jW1-MM-dRR">
             <objects>
                 <tabBarController id="DoS-g2-Wp2" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="qgC-NQ-50X"/>
+                    <navigationItem key="navigationItem" id="qgC-NQ-50X">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="9r0-jK-sAa"/>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="uFG-dJ-RMH"/>
+                            <barButtonItem image="pin" id="ugm-ot-A4u"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="GbN-Be-QEa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -247,6 +324,7 @@
     <resources>
         <image name="list" width="32" height="32"/>
         <image name="map" width="32" height="32"/>
+        <image name="pin" width="32" height="32"/>
         <image name="udacity" width="256" height="256"/>
     </resources>
 </document>

@@ -38,6 +38,7 @@ extension udacityClient {
     
     struct Methods {
         static let Session = "/session"
+        static let Users = "/users"
     }
     
     // MARK: HTTPBodyKeys

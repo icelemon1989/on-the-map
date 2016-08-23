@@ -50,6 +50,14 @@ class LoginViewController: UIViewController {
                 performUIUpdatesOnMain({
                     if let key = userKey {
                         self.debugLabel.text = key
+                        print(key)
+                        //TODO: retrieve data successfully NEXT pass to map and tableview
+                        self.UdacityClient.studentWithUserKey(key, completeHandler: { (student, error) in
+                            print("key")
+                            performUIUpdatesOnMain({
+                                self.login()
+                            })
+                        })
                     } else {
                         print(error)
                         self.debugLabel.text = error?.localizedDescription
@@ -59,11 +67,17 @@ class LoginViewController: UIViewController {
         }
         
     }
+    
+    
 
     @IBAction func signUpButtonPressed(sender: UIButton) {
         if let signUpURL = NSURL(string: udacityClient.Common.signUpURL) where UIApplication.sharedApplication().canOpenURL(signUpURL) {
             UIApplication.sharedApplication().openURL(signUpURL)
         }
+    }
+    
+    private func login() {
+        performSegueWithIdentifier("login", sender: self)
     }
     
     
