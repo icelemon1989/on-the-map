@@ -117,4 +117,16 @@ class APICommon {
         let userInfo = [NSLocalizedDescriptionKey: description]
         return NSError(domain: "APICommon", code: status, userInfo: userInfo)
     }
+    
+    //MARK: Cookies
+    
+    func cookieForName(name: String) -> NSHTTPCookie? {
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == name {
+                return cookie
+            }
+        }
+        return nil
+    }
 }

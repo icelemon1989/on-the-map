@@ -89,6 +89,28 @@ class udacityClient {
 
     }
     
+    //MARK: Logout
+    
+    func logout(CompleteHandler:(sucess: Bool?, error: NSError?) -> Void) {
+        
+        //create Method: https://www.udacity.com/api/session
+        //Method Type: DELETE
+        let logoutURL = apiCommon.urlFromParameters(Methods.Session)
+        var logoutHeaders = [String:String]()
+        if let xsrfCookie = apiCommon.cookieForName(Cookies.XSRFToken) {
+            logoutHeaders[HeaderKeys.XSRFToken] = xsrfCookie.value
+        }
+        makeRequestForUdacity(url: logoutURL, method: .DELETE) { (jsonAsDictionary, error) in
+            if let error = error {
+                CompleteHandler(sucess: false, error: error)
+            } else {
+                if (jsonAsDictionary![JSONResponseKeys.Session] as? [String: AnyObject]) != nil {
+                    CompleteHandler(sucess: true, error: nil)
+                }
+            }
+        }
+    }
+    
     // MARK: GET Student Data  
     
     func studentWithUserKey(userKey: String, completeHandler:(student: Student?, error: NSError?) -> Void) {

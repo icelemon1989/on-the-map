@@ -26,6 +26,7 @@ extension udacityClient {
     struct HeaderKeys {
         static let Accept = "Accept"
         static let ContentType = "Content-Type"
+        static let XSRFToken = "X-XSRF-TOKEN"
     }
     
     // MARK: HeaderValues
@@ -75,6 +76,12 @@ extension udacityClient {
     
     struct Common {
         static let signUpURL = "https://www.udacity.com/account/auth#!/signup"
+    }
+    
+    // MARK: Cookies
+    
+    struct Cookies {
+        static let XSRFToken = "XSRF-TOKEN"
     }
 
 }
