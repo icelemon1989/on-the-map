@@ -15,8 +15,6 @@ class TabBarController: UITabBarController {
     
     //MARK: Actions
     
-    //MARK: Logout
-    
     @IBAction func logoutButtonPressed(sender: UIBarButtonItem) {
         
         UdacityClient.logout { (sucess, error) in

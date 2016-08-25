@@ -6,7 +6,6 @@
 //  Copyright © 2016 Yang Ji. All rights reserved.
 //
 
-import Foundation
 
 struct Student {
     
