@@ -23,6 +23,24 @@ extension parseClient {
         static let StudentLocation = "/StudentLocation"
     }
     
+    //MARK: Parameters Key
+    
+    struct ParametersKey {
+        static let Limit = "limit"
+        static let Skip = "skip"
+        static let Order = "order"
+        static let Where = "where"
+        static let UniqueKey = "uniqueKey"
+    }
+    
+    //MARK: Parameters Value
+    struct ParametersValue {
+        static let OneHundred = 100
+        static let TwoHundred = 200
+        static let MostRecentlyUpdated = "-updatedAt"
+        static let MostRecentlyCreated = "-createdAt"
+    }
+    
     //MARK: HeaderKeys
     
     struct HeaderKeys {
@@ -67,5 +85,13 @@ extension parseClient {
     //MARK: Error
     struct Errors {
         static let Domain = "ParseClient"
+        static let NoRecords = "NoRecords"
+    }
+    
+    // MARK: Notifications
+    
+    struct Notifications {
+        static let LocationsUpdated = "Updated"
+        static let LocationsUpdatedError = "UpdatedError"
     }
 }
