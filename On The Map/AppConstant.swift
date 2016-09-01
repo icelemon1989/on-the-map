@@ -14,6 +14,7 @@ struct AppConstant {
     
     struct AlertActions {
         static let Cancel = "Cancel"
+        static let Dismiss = "Dismiss"
     }
     
     //MARK: Errors

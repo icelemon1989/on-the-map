@@ -50,3 +50,22 @@ class SharedData: NSObject {
         }
     }
 }
+
+// MARK: - StudentLocationDataSource: UITableViewDataSource
+extension SharedData: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return studentLocations.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let reuseIdentifier = "StudentLocationTableViewCell"
+        let studentLocationCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! StudentLocationTableViewCell
+        let studentLocation = studentLocations[indexPath.row]
+        studentLocationCell.configureWithStudentLocation(studentLocation)
+        return studentLocationCell
+        
+    }
+    
+    
+}
