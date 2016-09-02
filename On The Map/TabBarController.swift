@@ -12,6 +12,7 @@ class TabBarController: UITabBarController {
     
     //MARK: Property
     let UdacityClient = udacityClient.sharedClient()
+    let otmSharedData = SharedData.sharedDataSource()
     
     //MARK: Actions
     
@@ -26,5 +27,9 @@ class TabBarController: UITabBarController {
         
     }
     
+    @IBAction func refreshButtonPressed(sender: UIBarButtonItem) {
+        otmSharedData.refreshStudentLocations()
+    }
+
 
 }

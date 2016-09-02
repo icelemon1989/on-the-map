@@ -43,12 +43,14 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="yIU-Oc-5lc"/>
                                         </constraints>
+                                        <color key="textColor" red="0.80392156862745101" green="0.46274509803921571" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="RjH-zp-fzo">
                                         <rect key="frame" x="0.0" y="262" width="560" height="50"/>
                                         <gestureRecognizers/>
+                                        <color key="textColor" red="0.80392156862745101" green="0.46274509803921571" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -306,7 +308,11 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="refresh" id="uFG-dJ-RMH"/>
+                            <barButtonItem systemItem="refresh" id="uFG-dJ-RMH">
+                                <connections>
+                                    <action selector="refreshButtonPressed:" destination="DoS-g2-Wp2" id="Ox3-mf-6uQ"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="pin" id="ugm-ot-A4u"/>
                         </rightBarButtonItems>
                     </navigationItem>
