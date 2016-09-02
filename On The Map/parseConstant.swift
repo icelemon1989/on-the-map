@@ -86,6 +86,7 @@ extension parseClient {
     struct Errors {
         static let Domain = "ParseClient"
         static let NoRecords = "NoRecords"
+        static let NoRecordAtKey = "No object record at userkey."
     }
     
     // MARK: Notifications

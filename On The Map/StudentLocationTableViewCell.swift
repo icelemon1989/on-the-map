@@ -17,7 +17,7 @@ class StudentLocationTableViewCell: UITableViewCell {
     @IBOutlet weak var studentURLLabel: UILabel!
     
     func configureWithStudentLocation(studentLocation: StudentLocation) {
-        studentImage.image = UIImage(named: "Pin")
+        studentImage.image = UIImage(named: "pin")
         studentNameLabel.text = studentLocation.student.FullName
         studentURLLabel.text = studentLocation.student.mediaURL
     }

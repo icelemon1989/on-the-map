@@ -75,5 +75,34 @@ class parseClient{
         }
     }
     
+    //MARK: GET Current Student Location
+    func studentLocationWithUserKey(userKey: String, completeHandler:(location: StudentLocation?, error: NSError?) -> Void) {
+        
+        let parameters =
+        [
+            ParametersKey.Where : "{\"" + "\(ParametersKey.UniqueKey)" + "\":\"" + "\(userKey)" + "\"}"
+        ]
+        
+        let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation, parameters: parameters)
+        print("Get a student location url:" + "\(studentLocationURL)")
+        
+        makeRequestForParse(url: studentLocationURL, method: HTTPMethod.GET) { (jsonAsDictionary, error) in
+            
+            guard error == nil else {
+                completeHandler(location: nil, error: error)
+                return
+            }
+            
+            if let jsonAsDictionary = jsonAsDictionary,
+                let studentDictionaries = jsonAsDictionary[JSONResponseKeys.Results] as? [[String:AnyObject]] {
+                if studentDictionaries.count == 1 {
+                    completeHandler(location: StudentLocation(dictionary: studentDictionaries[0]), error: nil)
+                    return
+                }
+            }
+            
+            completeHandler(location: nil, error: self.apiCommon.errorWithStatus(0, description: Errors.NoRecordAtKey))
+        }
+    }
     
 }

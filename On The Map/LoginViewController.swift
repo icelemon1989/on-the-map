@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     private var keyboardOnScreen = false
     
     private let UdacityClient = udacityClient.sharedClient()
+    private let otmSharedData = SharedData.sharedDataSource()
     
     //MARK: Life Cycle
     
@@ -46,26 +47,32 @@ class LoginViewController: UIViewController {
             //TODO: improve debug
             debugLabel.text = "missing email or password"
         } else {
-            UdacityClient.loginWithUsername(emailTextField.text!, password: passwordTextField.text!, completeHandler: { (userKey, error) in
+            UdacityClient.loginWithUsername(emailTextField.text!, password:passwordTextField.text! , completeHandler: { (userKey, error) in
                 performUIUpdatesOnMain({
-                    if let key = userKey {
-                        self.debugLabel.text = key
-                        print(key)
-                        //TODO: retrieve data successfully NEXT pass to map and tableview
-                        self.UdacityClient.studentWithUserKey(key, completeHandler: { (student, error) in
-                            print("key")
-                            performUIUpdatesOnMain({
-                                self.login()
-                            })
-                        })
+                    if let userKey = userKey {
+                        self.getStudentData(userKey)
                     } else {
-                        print(error)
-                        self.debugLabel.text = error?.localizedDescription
+                        self.alertWithError(error!.localizedDescription)
                     }
                 })
             })
         }
-        
+    }
+    
+    
+    //MARK: Get Student Data
+    private func getStudentData(userKey: String) {
+        UdacityClient.studentWithUserKey(userKey) { (student, error) in
+            performUIUpdatesOnMain({
+                if let student = student {
+                    self.otmSharedData.currentStudent = student
+                    self.login()
+                } else {
+                    print(error)
+                    self.debugLabel.text = error?.localizedDescription
+                }
+            })
+        }
     }
     
     
@@ -78,6 +85,15 @@ class LoginViewController: UIViewController {
     
     private func login() {
         performSegueWithIdentifier("login", sender: self)
+    }
+    
+    // MARK: Display Error Alert
+    
+    private func alertWithError(error: String) {
+        
+        let alertView = UIAlertController(title: AppConstant.Alert.LoginTitle, message: error, preferredStyle: .Alert)
+        alertView.addAction(UIAlertAction(title: AppConstant.AlertActions.Dismiss, style: .Cancel, handler: nil))
+        self.presentViewController(alertView, animated: true, completion: nil)
     }
     
     
