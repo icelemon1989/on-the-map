@@ -27,6 +27,8 @@ class PostingViewController: UIViewController {
     @IBOutlet weak var inputLocationTextField: UITextField!
     @IBOutlet weak var inputLinkTextField: UITextField!
     @IBOutlet weak var findMapButton: UIButton!
+    @IBOutlet weak var activityIndecator: UIActivityIndicatorView!
+    @IBOutlet weak var cancelButton: UIButton!
 
     //MARK: Properties
     
@@ -39,25 +41,38 @@ class PostingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupUI()
         configureUI(.InputLocation)
     }
     
+    @IBAction func cancelButtonPressed(sender: UIButton) {
+        dismissVC()
+    }
+    
+    
     @IBAction func findMapButtonPressed(sender: UIButton) {
         if findMapButton.currentTitle == "Find on Map" {
-            configureUI(.InputLink)
             //check for empty string
             if inputLocationTextField.text!.isEmpty {
                 displayAlert(AppConstant.Errors.LocationStringEmpty)
             }
+            
+            // start activity indicator
+            startActivity()
+            
             //add placemark
             self.addPlacemark()
             
         } else {//"Submit" button to posting a mediaURL
             
+            activityIndecator.hidden = false
+            activityIndecator.startAnimating()
+            
             //check if empty string
             if inputLinkTextField.text!.isEmpty {
                 displayAlert(AppConstant.Errors.LinkStringEmpty)
             }
+            
             // check if student and placemark initialized
             guard let student = omtDataSource.currentStudent,
                 let placemark = placemark,
@@ -86,7 +101,7 @@ class PostingViewController: UIViewController {
                         self.displayAlert(AppConstant.Errors.NoLocationFound)
                     } else {
                         self.placemark = results![0]
-                        //self.configureUI(.InputLink)
+                        self.configureUI(.InputLink)
                         self.PostingMapView.showAnnotations([MKPlacemark(placemark: self.placemark!)], animated: true)
                     }
                 })
@@ -134,10 +149,22 @@ class PostingViewController: UIViewController {
     
     private func displayAlert(message: String, completionHandler: ((UIAlertAction) -> Void)? = nil) {
         performUIUpdatesOnMain {
+            self.stopActivity()
             let alert = UIAlertController(title: "", message: message, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: AppConstant.AlertActions.Dismiss, style: .Default, handler: completionHandler))
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    }
+    
+    //MARK: setup UI
+    
+    private func setupUI() {
+        
+        inputLocationTextField.delegate = self
+        inputLinkTextField.delegate = self
+        
+        activityIndecator.hidden = true
+        activityIndecator.stopAnimating()
     }
     
     // MARK: Configure UI
@@ -149,6 +176,7 @@ class PostingViewController: UIViewController {
     }
     
     private func configureUI(state: PostingState) {
+        stopActivity()
         
         UIView.animateWithDuration(1.0) { 
             switch(state) {
@@ -158,16 +186,57 @@ class PostingViewController: UIViewController {
                 self.findMapButton.setTitle("Find on Map", forState: .Normal)
                 self.PromptLabel.hidden = false
                 self.middleView.backgroundColor = UIColor(red: 0.275, green: 0.490, blue: 0.666, alpha: 1.0)
+                self.bottomView.backgroundColor = UIColor(red: 0.917, green: 0.917, blue: 0.917, alpha: 1.0)
             case .InputLink:
                 self.inputLinkTextField.hidden = false
                 self.inputLocationTextField.hidden = true
                 self.PromptLabel.hidden = true
                 self.findMapButton.setTitle("Submit", forState: .Normal)
                 self.middleView.backgroundColor = UIColor.clearColor()
+                self.bottomView.backgroundColor = UIColor.clearColor()
             }
             
         }
     }
+    
+    //MARK: Activity Indicator
+    private func startActivity() {
+        activityIndecator.hidden = false
+        activityIndecator.startAnimating()
+        setFindingUIEnabled(false)
+        setFindingUIAlpha(0.5)
+    }
+    
+    private func stopActivity() {
+        activityIndecator.hidden = true
+        activityIndecator.stopAnimating()
+        setFindingUIAlpha(1)
+        setFindingUIEnabled(true)
+    }
+    
+    private func setFindingUIEnabled(enabled: Bool) {
+        inputLocationTextField.enabled = enabled
+        findMapButton.enabled = enabled
+        cancelButton.enabled = enabled
+        PromptLabel.enabled = enabled
+    }
+    
+    private func setFindingUIAlpha(alpha: CGFloat) {
+        inputLocationTextField.alpha = alpha
+        findMapButton.alpha = alpha
+        cancelButton.alpha = alpha
+        PromptLabel.alpha = alpha
+    }
 
 
+}
+
+// MARK: PostingViewController: UITextFieldDelegate
+
+extension PostingViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

@@ -359,6 +359,9 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="HLC-oy-3uy" eventType="touchUpInside" id="QS2-jf-JIh"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where are you studying today?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxn-tS-agb">
                                         <rect key="frame" x="204" y="58" width="192" height="134"/>
@@ -408,6 +411,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="4bA-Bd-Qbf">
+                                        <rect key="frame" x="290" y="90" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2555551327199464" green="0.56309134163472452" blue="0.74421073717948716" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -440,9 +446,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rKn-XF-Ki3" firstAttribute="bottom" secondItem="zQc-YM-fQH" secondAttribute="top" id="0Ts-IC-4aV"/>
+                            <constraint firstItem="4bA-Bd-Qbf" firstAttribute="centerX" secondItem="gZU-Tb-eHj" secondAttribute="centerX" id="6BZ-m2-G7n"/>
                             <constraint firstItem="zQc-YM-fQH" firstAttribute="top" secondItem="SCX-jj-Day" secondAttribute="bottom" id="BFo-wR-YM9"/>
                             <constraint firstAttribute="trailing" secondItem="SCX-jj-Day" secondAttribute="trailing" id="BGT-Ve-c2L"/>
                             <constraint firstItem="HHj-Fu-DeC" firstAttribute="top" secondItem="r5A-UL-EX0" secondAttribute="bottom" id="GZZ-WI-I58"/>
+                            <constraint firstItem="4bA-Bd-Qbf" firstAttribute="centerY" secondItem="gZU-Tb-eHj" secondAttribute="centerY" id="HfL-kW-ZlO"/>
                             <constraint firstAttribute="trailing" secondItem="HHj-Fu-DeC" secondAttribute="trailing" id="INH-rf-vhp"/>
                             <constraint firstItem="rKn-XF-Ki3" firstAttribute="top" secondItem="gZU-Tb-eHj" secondAttribute="top" id="VEY-0E-SUa"/>
                             <constraint firstItem="SCX-jj-Day" firstAttribute="top" secondItem="HHj-Fu-DeC" secondAttribute="bottom" id="Wku-HD-Rnf"/>
@@ -462,7 +470,9 @@
                     <connections>
                         <outlet property="PostingMapView" destination="rKn-XF-Ki3" id="1hr-gT-N1Z"/>
                         <outlet property="PromptLabel" destination="Oxn-tS-agb" id="aab-bK-Hy6"/>
+                        <outlet property="activityIndecator" destination="4bA-Bd-Qbf" id="oaF-1F-uOZ"/>
                         <outlet property="bottomView" destination="SCX-jj-Day" id="dNd-jN-Y0h"/>
+                        <outlet property="cancelButton" destination="kKP-vB-9v8" id="HQW-Qf-9IW"/>
                         <outlet property="findMapButton" destination="hO8-Y5-TSM" id="Lmc-fs-MEe"/>
                         <outlet property="inputLinkTextField" destination="0Ng-5W-ece" id="EA7-TW-G15"/>
                         <outlet property="inputLocationTextField" destination="HGo-C9-6W1" id="9ij-Rm-mgc"/>
