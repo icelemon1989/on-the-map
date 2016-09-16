@@ -46,6 +46,7 @@ class SharedData: NSObject {
             if let students = studentlocations {
                 self.studentLocations = students
                 self.sentDataNotification("\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdated)")
+                print("refreshed studentlocations")
             }
         }
     }

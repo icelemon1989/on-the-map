@@ -105,4 +105,80 @@ class parseClient{
         }
     }
     
+    // MARK: POST Student Location(new student)
+    func postStudentLocation(mediaURL: String, studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError?) -> Void) {
+        let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation)
+        let studentLocationBody: [String:AnyObject] = [
+            BodyKeys.UniqueKey: studentLocation.student.uniqueKey,
+            BodyKeys.FirstName: studentLocation.student.FirstName,
+            BodyKeys.LastName: studentLocation.student.LastName,
+            BodyKeys.MapString: studentLocation.location.mapString,
+            BodyKeys.MediaURL: mediaURL,
+            BodyKeys.Latitude: studentLocation.location.latitude,
+            BodyKeys.Longitude: studentLocation.location.longtitdue
+        ]
+        makeRequestForParse(url: studentLocationURL, method: .POST, body: studentLocationBody) { (jsonAsDictionary, error) in
+            guard error == nil else {
+                completionHandler(success: false, error: error)
+                return
+            }
+            
+            // success
+            if let jsonAsDictionary = jsonAsDictionary,
+                let _ = jsonAsDictionary[JSONResponseKeys.ObjectID] as? String {
+                completionHandler(success: true, error: nil)
+                print("success posting a new student mediaURL")
+                return
+            }
+            
+            // known failure
+            if let jsonAsDictionary = jsonAsDictionary,
+                let error = jsonAsDictionary[JSONResponseKeys.Error] as? String {
+                completionHandler(success: true, error: self.apiCommon.errorWithStatus(0, description: error))
+                return
+            }
+            // unknown failure
+            completionHandler(success: false, error: self.apiCommon.errorWithStatus(0, description: Errors.CouldNotPostLocation))
+        }
+        
+    }
+    
+    // MARK: PUT Student Location(update existing student)
+    func updateStudentLocationWithObjectID(objectID: String, mediaURL: String, studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError?) -> Void) {
+        
+        let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation, withPathExtension: "/\(objectID)")
+        let studentLocationBody : [String: AnyObject] = [
+            BodyKeys.UniqueKey: studentLocation.student.uniqueKey,
+            BodyKeys.FirstName: studentLocation.student.FirstName,
+            BodyKeys.LastName: studentLocation.student.LastName,
+            BodyKeys.MapString: studentLocation.location.mapString,
+            BodyKeys.MediaURL: mediaURL,
+            BodyKeys.Latitude: studentLocation.location.latitude,
+            BodyKeys.Longitude: studentLocation.location.longtitdue
+        ]
+        
+        makeRequestForParse(url: studentLocationURL, method: .PUT, body: studentLocationBody) { (jsonAsDictionary, error) in
+            guard error == nil else {
+                completionHandler(success: false, error: error)
+                return
+            }
+            // success
+            if let jsonAsDictionary = jsonAsDictionary,
+                let _ = jsonAsDictionary[JSONResponseKeys.UpdatedAt] {
+                completionHandler(success: true, error: nil)
+                return
+            }
+            
+            // known failure
+            if let jsonAsDictionary = jsonAsDictionary,
+                let error = jsonAsDictionary[JSONResponseKeys.Error] as? String {
+                completionHandler(success: true, error: self.apiCommon.errorWithStatus(0, description: error))
+                return
+            }
+            
+            // unknown failure
+            completionHandler(success: false, error: self.apiCommon.errorWithStatus(0, description: Errors.CouldNotUpdateLocation))
+        }
+    }
 }
+    

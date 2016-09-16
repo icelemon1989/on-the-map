@@ -87,6 +87,8 @@ extension parseClient {
         static let Domain = "ParseClient"
         static let NoRecords = "NoRecords"
         static let NoRecordAtKey = "No object record at userkey."
+        static let CouldNotUpdateLocation = "Student location could not be updated."
+        static let CouldNotPostLocation = "Student location could not be posted."
     }
     
     // MARK: Notifications
@@ -94,5 +96,17 @@ extension parseClient {
     struct Notifications {
         static let LocationsUpdated = "Updated"
         static let LocationsUpdatedError = "UpdatedError"
+    }
+    
+    // MARK: BodyKeys
+    
+    struct BodyKeys {
+        static let UniqueKey = "uniqueKey"
+        static let FirstName = "firstName"
+        static let LastName = "lastName"
+        static let MediaURL = "mediaURL"
+        static let Latitude = "latitude"
+        static let Longitude = "longitude"
+        static let MapString = "mapString"
     }
 }

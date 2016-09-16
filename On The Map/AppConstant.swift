@@ -29,5 +29,11 @@ struct AppConstant {
     struct Errors {
         static let CannotOpenURL = "Cannot open URL."
         static let CouldNotUpdateStudentLocations = "Could not update student locations."
+        static let LocationStringEmpty = "Please enter your location."
+        static let CouldNotGeocode = "Could not geocode the location input string."
+        static let NoLocationFound = "Could not find the location"
+        static let LinkStringEmpty = "Please enter your media link."
+        static let StudentAndPlacemarkEmpty = "Student and placemark not initialized."
+        static let PostStudentLocationFailed = "Student location could not be posted."
     }
 }
