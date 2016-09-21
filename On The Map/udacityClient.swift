@@ -54,15 +54,21 @@ class udacityClient {
         }
     }
     
-    func loginWithUsername(username: String, password: String, completeHandler: (userKey: String?, error: NSError?) -> Void) {
+    func loginWithUsername(username: String, password: String,facebookToken: String? = nil, completeHandler: (userKey: String?, error: NSError?) -> Void) {
 
         let loginURL = apiCommon.urlFromParameters(Methods.Session)
-        let loginBody : [String: AnyObject] = [
-            HTTPBodyKeys.Udacity : [
-                HTTPBodyKeys.Username : username,
-                HTTPBodyKeys.Password : password
+        var loginBody = [String:AnyObject]()
+        if let facebookToken = facebookToken {
+            loginBody["facebook_mobile"] = [
+                "access_token": facebookToken
             ]
-        ]
+        } else {
+            loginBody[HTTPBodyKeys.Udacity] = [
+                HTTPBodyKeys.Username: username,
+                HTTPBodyKeys.Password: password
+            ]
+        }
+        
         
         makeRequestForUdacity(url: loginURL, method: HTTPMethod.POST, body: loginBody) { (jsonAsDictionary, error) in
             
@@ -87,6 +93,13 @@ class udacityClient {
             
         }
 
+    }
+    
+    //MARK: login with facebookToken
+    
+    func loginWithFacebookToken(token: String, completionHandler: (userKey: String?, error: NSError?) -> Void) {
+        
+        loginWithUsername("", password:  "", facebookToken: token, completeHandler: completionHandler)
     }
     
     //MARK: Logout
@@ -143,6 +156,8 @@ class udacityClient {
         }
         
     }
+    
+    
     
     
 }

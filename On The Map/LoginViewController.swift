@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
     
@@ -16,12 +17,14 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var udacityImage: UIImageView!
+    @IBOutlet weak var facebookLoginButton: FBSDKLoginButton!
     
     // MARK: Properties
     private var keyboardOnScreen = false
     
     private let UdacityClient = udacityClient.sharedClient()
     private let otmSharedData = SharedData.sharedDataSource()
+    private let FacebookClient = facebookClient.sharedClient()
     
     //MARK: Life Cycle
     
@@ -29,15 +32,26 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        subscribeToNotification(UIKeyboardWillShowNotification, selector: #selector(keyboardWillShow))
-        subscribeToNotification(UIKeyboardWillHideNotification, selector: #selector(keyboardWillHide))
-        subscribeToNotification(UIKeyboardDidShowNotification, selector: #selector(keyboardDidShow))
-        subscribeToNotification(UIKeyboardDidHideNotification, selector: #selector(keyboardDidHide))
+        subscribeNotification()
+        
+        FacebookClient.logout()
+        
+        facebookLoginButton.readPermissions = ["public_profile"]
+        facebookLoginButton.delegate = self
+        
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         unsubscribeFromAllNotifications()
+    }
+    
+    private func subscribeNotification() {
+        subscribeToNotification(UIKeyboardWillShowNotification, selector: #selector(keyboardWillShow))
+        subscribeToNotification(UIKeyboardWillHideNotification, selector: #selector(keyboardWillHide))
+        subscribeToNotification(UIKeyboardDidShowNotification, selector: #selector(keyboardDidShow))
+        subscribeToNotification(UIKeyboardDidHideNotification, selector: #selector(keyboardDidHide))
     }
 
     //MARK: Action
@@ -165,6 +179,45 @@ extension LoginViewController {
     
     private func unsubscribeFromAllNotifications() {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+}
+
+extension LoginViewController : FBSDKLoginButtonDelegate {
+    func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
+        if FacebookClient.currentAccessToken() == nil {
+            emailTextField.text = ""
+            passwordTextField.text = ""
+        }
+        return true
+    }
+    
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        
+        func displayError(error: String) {
+            self.FacebookClient.logout()
+            debugLabel.text = error
+        }
+        
+        if let token = result.token.tokenString {
+            UdacityClient.loginWithFacebookToken(token) { (userKey, error) in
+                dispatch_async(dispatch_get_main_queue()) {
+                    if let userKey = userKey {
+                        self.getStudentData(userKey)
+                    } else {
+                        displayError(error!.localizedDescription)
+                    }
+                }
+            }
+        } else if result.isCancelled {
+            print(" login cancelled")
+            
+        }else {
+            displayError(error!.localizedDescription)
+        }
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        print("FB log out")
     }
 }
 

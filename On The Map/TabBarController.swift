@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class TabBarController: UITabBarController {
     
@@ -29,6 +30,7 @@ class TabBarController: UITabBarController {
         
         UdacityClient.logout { (sucess, error) in
             performUIUpdatesOnMain({
+                FBSDKLoginManager().logOut()
                 self.dismissViewControllerAnimated(true, completion: nil)
                 print("log out success!")
             })

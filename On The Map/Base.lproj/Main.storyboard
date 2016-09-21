@@ -111,23 +111,15 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IW-CR-kbI" customClass="boardedButton" customModule="On_The_Map" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IW-CR-kbI" customClass="FBSDKLoginButton">
                                         <rect key="frame" x="0.0" y="500" width="560" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="EsH-kh-kwN"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <state key="normal" title="Sign in with Facebook">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="backingColor">
-                                                <color key="value" red="0.22745098039215686" green="0.32941176470588235" blue="0.6470588235294118" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="highlightColor">
-                                                <color key="value" red="0.17203229865771813" green="0.21604970637583892" blue="0.47742764261744963" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -151,6 +143,7 @@
                     <connections>
                         <outlet property="debugLabel" destination="sHg-py-rrd" id="Pe9-bM-RzD"/>
                         <outlet property="emailTextField" destination="sQa-GD-zXg" id="zU1-cS-ZzS"/>
+                        <outlet property="facebookLoginButton" destination="7IW-CR-kbI" id="5FM-ON-Ns9"/>
                         <outlet property="passwordTextField" destination="RjH-zp-fzo" id="jWb-kw-rGk"/>
                         <outlet property="udacityImage" destination="bBV-aV-s0H" id="Pvf-Tj-8HH"/>
                         <segue destination="yZ0-Ah-d2h" kind="show" identifier="login" id="0FE-QJ-ifx"/>
