@@ -32,6 +32,8 @@ class parseClient{
         let headers = [
             HeaderKeys.APIKey: HeaderValue.APIKey,
             HeaderKeys.AppID: HeaderValue.AppID,
+            HeaderKeys.ContentType: HeaderValue.JSON,
+            HeaderKeys.Accept: HeaderValue.JSON
         ]
         
         apiCommon.taskForREQUESTMethod(url, method: method, header: headers, body: body) { (data, error) in
@@ -39,6 +41,7 @@ class parseClient{
                 let jsonDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String: AnyObject]
                 completeHandle(jsonAsDictionary: jsonDictionary, error: nil)
             } else {
+                print("error in taskForRequestMethod is \(error)")
                 completeHandle(jsonAsDictionary: nil, error: error)
             }
         }
@@ -107,18 +110,22 @@ class parseClient{
     
     // MARK: POST Student Location(new student)
     func postStudentLocation(mediaURL: String, studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError?) -> Void) {
+        
         let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation)
         let studentLocationBody: [String:AnyObject] = [
-            BodyKeys.UniqueKey: studentLocation.student.uniqueKey,
-            BodyKeys.FirstName: studentLocation.student.FirstName,
-            BodyKeys.LastName: studentLocation.student.LastName,
-            BodyKeys.MapString: studentLocation.location.mapString,
-            BodyKeys.MediaURL: mediaURL,
-            BodyKeys.Latitude: studentLocation.location.latitude,
-            BodyKeys.Longitude: studentLocation.location.longtitdue
+            BodyKeys.UniqueKey: studentLocation.student.uniqueKey as String,
+            BodyKeys.FirstName: studentLocation.student.FirstName as String,
+            BodyKeys.LastName: studentLocation.student.LastName as String,
+            BodyKeys.MapString: studentLocation.location.mapString as String,
+            BodyKeys.MediaURL: mediaURL as String,
+            BodyKeys.Latitude: studentLocation.location.latitude as Double,
+            BodyKeys.Longitude: studentLocation.location.longtitdue as Double
         ]
+        print("new studentLocationBody is \(studentLocationBody)")
+        
         makeRequestForParse(url: studentLocationURL, method: .POST, body: studentLocationBody) { (jsonAsDictionary, error) in
             guard error == nil else {
+                print("error in makeRequestForParse function is \(error)")
                 completionHandler(success: false, error: error)
                 return
             }
@@ -134,6 +141,8 @@ class parseClient{
             // known failure
             if let jsonAsDictionary = jsonAsDictionary,
                 let error = jsonAsDictionary[JSONResponseKeys.Error] as? String {
+                print("jsonAsDictionary is \(jsonAsDictionary)")
+                print("error in jsonAsDictionary: \(error)")
                 completionHandler(success: true, error: self.apiCommon.errorWithStatus(0, description: error))
                 return
             }
@@ -147,6 +156,7 @@ class parseClient{
     func updateStudentLocationWithObjectID(objectID: String, mediaURL: String, studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation, withPathExtension: "/\(objectID)")
+        print(studentLocationURL)
         let studentLocationBody : [String: AnyObject] = [
             BodyKeys.UniqueKey: studentLocation.student.uniqueKey,
             BodyKeys.FirstName: studentLocation.student.FirstName,
@@ -156,6 +166,7 @@ class parseClient{
             BodyKeys.Latitude: studentLocation.location.latitude,
             BodyKeys.Longitude: studentLocation.location.longtitdue
         ]
+        print("posting an existing student studentLocationbody: \(studentLocationBody)")
         
         makeRequestForParse(url: studentLocationURL, method: .PUT, body: studentLocationBody) { (jsonAsDictionary, error) in
             guard error == nil else {

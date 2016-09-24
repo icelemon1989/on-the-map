@@ -20,7 +20,7 @@ class LocationsTableViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.delegate = self
-        tableView.dataSource = otmDataSource
+        tableView.dataSource = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsTableViewController.studentLocationDidUpdate), name: "\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdatedError)", object: nil)
         
     }
@@ -38,6 +38,11 @@ class LocationsTableViewController: UITableViewController {
         self.presentViewController(alertView, animated: true, completion: nil)
     }
 
+}
+
+// MARK: - StudentLocationDataSource: UITableViewDataSource
+extension LocationsTableViewController {
+    
     //MARK: UITableViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -52,5 +57,16 @@ class LocationsTableViewController: UITableViewController {
         }
         
     }
-
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return otmDataSource.studentLocations.count
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let reuseIdentifier = "StudentLocationTableViewCell"
+        let studentLocationCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier) as! StudentLocationTableViewCell
+        let studentLocation = otmDataSource.studentLocations[indexPath.row]
+        studentLocationCell.configureWithStudentLocation(studentLocation)
+        return studentLocationCell
+    }
 }

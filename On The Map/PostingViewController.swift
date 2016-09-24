@@ -81,7 +81,6 @@ class PostingViewController: UIViewController {
                     return
             }
             postingMediaLink(student, placemark: placemark, postedLocation: postedLocation)
-            
         }
         
         
@@ -114,6 +113,7 @@ class PostingViewController: UIViewController {
         // define request handler
         let handlerRequest : ((NSError?, String) -> Void) = { (error, mediaURL) in
             if error != nil {
+                print("error in handlerrequest is \(error)")
                 self.displayAlert(AppConstant.Errors.PostStudentLocationFailed) { (alert) in
                     self.dismissVC()
                 }
@@ -121,24 +121,23 @@ class PostingViewController: UIViewController {
                 self.omtDataSource.currentStudent!.mediaURL = mediaURL
                 self.omtDataSource.refreshStudentLocations()
                 self.dismissVC()
-
             }
         }
         
         // init new posting
         let location = Location(latitude: postedLocation.coordinate.latitude, longtitdue: postedLocation.coordinate.longitude, mapString: inputLocationTextField.text!)
         let mediaURL = inputLinkTextField.text!
+        print("inputLinkTextFiew.text media: \(mediaURL)")
         
         if let objectID = objectID {
             let studentlocation = StudentLocation(objectID: objectID, student: student, location: location)
             ParseClient.updateStudentLocationWithObjectID(objectID, mediaURL: mediaURL, studentLocation: studentlocation, completionHandler: { (success, error) in
-                if success {
-                    print("success posting an existing student")
-                }
                 handlerRequest(error, mediaURL)
             })
         } else {
-            let newstudentlocation = StudentLocation(student: student, location: location)
+            let newstudentlocation = StudentLocation(objectID: "", student: student, location: location)
+            print("newstudentlocation is \(newstudentlocation)")
+           
             ParseClient.postStudentLocation(mediaURL, studentLocation: newstudentlocation, completionHandler: { (success, error) in
                 handlerRequest(error, mediaURL)
             })
