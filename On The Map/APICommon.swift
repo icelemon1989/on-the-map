@@ -65,14 +65,14 @@ class APICommon {
         
         //create task
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
-//            print("method", method)
-//            print("request url", url)
-//            print("request body", body)
-//            print("request HTTPBody", request.HTTPBody)
-//            print("request header", header)
-//            print("data", data)
-//            print("response", response)
-//            print("error", error)
+            print("method", method)
+            print("request url", url)
+            print("request body", body)
+            print("request HTTPBody", request.HTTPBody)
+            print("request header", header)
+            print("data", data)
+            print("response", response)
+            print("error", error)
             // was there an error?
             if let error = error {
                 completeHandler(nil, error)

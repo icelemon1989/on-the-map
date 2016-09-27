@@ -113,13 +113,13 @@ class parseClient{
         
         let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation)
         let studentLocationBody: [String:AnyObject] = [
-            BodyKeys.UniqueKey: studentLocation.student.uniqueKey as String,
-            BodyKeys.FirstName: studentLocation.student.FirstName as String,
-            BodyKeys.LastName: studentLocation.student.LastName as String,
-            BodyKeys.MapString: studentLocation.location.mapString as String,
-            BodyKeys.MediaURL: mediaURL as String,
-            BodyKeys.Latitude: studentLocation.location.latitude as Double,
-            BodyKeys.Longitude: studentLocation.location.longtitdue as Double
+            BodyKeys.UniqueKey: studentLocation.student.uniqueKey,
+            BodyKeys.FirstName: studentLocation.student.FirstName,
+            BodyKeys.LastName: studentLocation.student.LastName,
+            BodyKeys.MapString: studentLocation.location.mapString,
+            BodyKeys.MediaURL: mediaURL,
+            BodyKeys.Latitude: studentLocation.location.latitude,
+            BodyKeys.Longitude: studentLocation.location.longtitdue
         ]
         print("new studentLocationBody is \(studentLocationBody)")
         
@@ -156,7 +156,7 @@ class parseClient{
     func updateStudentLocationWithObjectID(objectID: String, mediaURL: String, studentLocation: StudentLocation, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
         let studentLocationURL = apiCommon.urlFromParameters(Methods.StudentLocation, withPathExtension: "/\(objectID)")
-        print(studentLocationURL)
+        print("studentLocationURL is \(studentLocationURL)")
         let studentLocationBody : [String: AnyObject] = [
             BodyKeys.UniqueKey: studentLocation.student.uniqueKey,
             BodyKeys.FirstName: studentLocation.student.FirstName,
