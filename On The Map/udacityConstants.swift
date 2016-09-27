@@ -67,7 +67,7 @@ extension udacityClient {
     
     struct Errors {
         static let Domain = "UdacityClient"
-        static let UnableToLogin = "Unable to login."
+        static let UnableToLogin = "Unable to login. The internet is disconnected."
         static let UnableToLogout = "Unable to logout."
         static let NoUserData = "Cannot access user data."
     }

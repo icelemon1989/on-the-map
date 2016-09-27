@@ -174,10 +174,20 @@ class PostingViewController: UIViewController {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
+                self.displayAlert((error?.localizedDescription)!)
                 completeHandler(success: false, error: error)
             }
+            
+            if let data = data {
+                let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
+                // success
+                if let _ = jsonAsDictionary[parseClient.JSONResponseKeys.UpdatedAt] {
+                    completeHandler(success: true, error: nil)
+                    return
+                }
+            }
             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-            completeHandler(success: true, error: nil)
+            self.displayAlert(parseClient.Errors.CouldNotUpdateLocation)
         }
         task.resume()
     }
@@ -205,10 +215,20 @@ class PostingViewController: UIViewController {
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithRequest(request) { data, response, error in
             if error != nil { // Handle error…
+                self.displayAlert((error?.localizedDescription)!)
                 completeHandler(success: false, error: error)
             }
-            completeHandler(success: true, error: error)
+            
+            if let data = data {
+                let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
+                // success
+                if let _ = jsonAsDictionary[parseClient.JSONResponseKeys.UpdatedAt] {
+                    completeHandler(success: true, error: nil)
+                    return
+                }
+            }
             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+            self.displayAlert(parseClient.Errors.CouldNotPostLocation)
         }
         task.resume()
     }
