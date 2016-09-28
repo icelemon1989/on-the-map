@@ -1,5 +1,5 @@
 //
-//  udacityClient.swift
+//  UdacityClient.swift
 //  On The Map
 //
 //  Created by Yang Ji on 8/17/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class udacityClient {
+class UdacityClient {
     
     //MARK: Properties
     
@@ -24,9 +24,9 @@ class udacityClient {
     
     // MARK: Singleton Instance
     
-    private static var sharedInstance = udacityClient()
+    private static var sharedInstance = UdacityClient()
     
-    class func sharedClient() -> udacityClient {
+    class func sharedClient() -> UdacityClient {
         return sharedInstance
     }
     

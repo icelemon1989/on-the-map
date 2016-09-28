@@ -19,19 +19,19 @@ struct StudentLocation {
     
     init(dictionary: [String:AnyObject]) {
         
-        objectID = dictionary[parseClient.JSONResponseKeys.ObjectID] as? String ?? ""
+        objectID = dictionary[ParseClient.JSONResponseKeys.ObjectID] as? String ?? ""
         
         //student data
-        let uniqueKey = dictionary[parseClient.JSONResponseKeys.UniqueKey] as? String ?? parseClient.DefaultValues.UniqueKey
-        let firstName = dictionary[parseClient.JSONResponseKeys.FirstName] as? String ?? parseClient.DefaultValues.FirstName
-        let lastName = dictionary[parseClient.JSONResponseKeys.LastName] as? String ?? parseClient.DefaultValues.LastName
-        let mediaURL = dictionary[parseClient.JSONResponseKeys.MediaURL] as? String ?? parseClient.JSONResponseKeys.MediaURL
+        let uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as? String ?? ParseClient.DefaultValues.UniqueKey
+        let firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as? String ?? ParseClient.DefaultValues.FirstName
+        let lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as? String ?? ParseClient.DefaultValues.LastName
+        let mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as? String ?? ParseClient.JSONResponseKeys.MediaURL
         student = Student(uniqueKey: uniqueKey, FirstName: firstName, LastName: lastName, mediaURL: mediaURL)
         
         //location data
-        let latitude = dictionary[parseClient.JSONResponseKeys.Latitude] as? Double ?? 0.0
-        let longtitude = dictionary[parseClient.JSONResponseKeys.Longitude] as? Double ?? 0.0
-        let mapString = dictionary[parseClient.JSONResponseKeys.MapString] as? String ?? parseClient.DefaultValues.MapString
+        let latitude = dictionary[ParseClient.JSONResponseKeys.Latitude] as? Double ?? 0.0
+        let longtitude = dictionary[ParseClient.JSONResponseKeys.Longitude] as? Double ?? 0.0
+        let mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as? String ?? ParseClient.DefaultValues.MapString
         location = Location(latitude: latitude, longtitdue: longtitude, mapString: mapString)
         
     }

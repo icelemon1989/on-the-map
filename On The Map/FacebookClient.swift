@@ -10,16 +10,16 @@ import Foundation
 import FBSDKCoreKit
 import FBSDKLoginKit
 
-class facebookClient {
+class FacebookClient {
     // MARK: Properties
     
     private let loginManager = FBSDKLoginManager()
     
     // MARK: Singleton Instance
     
-    private static var sharedInstance = facebookClient()
+    private static var sharedInstance = FacebookClient()
     
-    class func sharedClient() -> facebookClient {
+    class func sharedClient() -> FacebookClient {
         return sharedInstance
     }
     
@@ -32,13 +32,13 @@ class facebookClient {
     
     class func setupWithOptions(application: UIApplication, launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Ensures proper use of the Facebook SDK
-        FBSDKSettings.setAppURLSchemeSuffix(facebookClient.Common.URLSuffix)
+        FBSDKSettings.setAppURLSchemeSuffix(FacebookClient.Common.URLSuffix)
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
     class func processURL(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
         // Handle interaction with the native Facebook app or Safari as part of SSO authorization flow or Facebook dialogs
-        if url.scheme == facebookClient.Common.URLScheme {
+        if url.scheme == FacebookClient.Common.URLScheme {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         } else {
             return true

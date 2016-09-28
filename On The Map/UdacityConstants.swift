@@ -10,7 +10,7 @@
 
 import Foundation
 
-extension udacityClient {
+extension UdacityClient {
     
     // MARK: Components
     

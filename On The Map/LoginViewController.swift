@@ -22,9 +22,9 @@ class LoginViewController: UIViewController {
     // MARK: Properties
     private var keyboardOnScreen = false
     
-    private let UdacityClient = udacityClient.sharedClient()
+    private let udacityClient = UdacityClient.sharedClient()
     private let otmSharedData = SharedData.sharedDataSource()
-    private let FacebookClient = facebookClient.sharedClient()
+    private let facebookClient = FacebookClient.sharedClient()
     
     //MARK: Life Cycle
     
@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
         
         subscribeNotification()
         
-        FacebookClient.logout()
+        facebookClient.logout()
         
         facebookLoginButton.readPermissions = ["public_profile"]
         facebookLoginButton.delegate = self
@@ -61,7 +61,7 @@ class LoginViewController: UIViewController {
             //TODO: improve debug
             debugLabel.text = "missing email or password"
         } else {
-            UdacityClient.loginWithUsername(emailTextField.text!, password:passwordTextField.text! , completeHandler: { (userKey, error) in
+            udacityClient.loginWithUsername(emailTextField.text!, password:passwordTextField.text! , completeHandler: { (userKey, error) in
                 performUIUpdatesOnMain({
                     if let userKey = userKey {
                         self.getStudentData(userKey)
@@ -76,7 +76,7 @@ class LoginViewController: UIViewController {
     
     //MARK: Get Student Data
     private func getStudentData(userKey: String) {
-        UdacityClient.studentWithUserKey(userKey) { (student, error) in
+        udacityClient.studentWithUserKey(userKey) { (student, error) in
             performUIUpdatesOnMain({
                 if let student = student {
                     self.otmSharedData.currentStudent = student
@@ -92,7 +92,7 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func signUpButtonPressed(sender: UIButton) {
-        if let signUpURL = NSURL(string: udacityClient.Common.signUpURL) where UIApplication.sharedApplication().canOpenURL(signUpURL) {
+        if let signUpURL = NSURL(string: UdacityClient.Common.signUpURL) where UIApplication.sharedApplication().canOpenURL(signUpURL) {
             UIApplication.sharedApplication().openURL(signUpURL)
         }
     }
@@ -184,7 +184,7 @@ extension LoginViewController {
 
 extension LoginViewController : FBSDKLoginButtonDelegate {
     func loginButtonWillLogin(loginButton: FBSDKLoginButton!) -> Bool {
-        if FacebookClient.currentAccessToken() == nil {
+        if facebookClient.currentAccessToken() == nil {
             emailTextField.text = ""
             passwordTextField.text = ""
         }
@@ -194,12 +194,12 @@ extension LoginViewController : FBSDKLoginButtonDelegate {
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         func displayError(error: String) {
-            self.FacebookClient.logout()
+            self.facebookClient.logout()
             debugLabel.text = error
         }
         
         if let token = result.token.tokenString {
-            UdacityClient.loginWithFacebookToken(token) { (userKey, error) in
+            udacityClient.loginWithFacebookToken(token) { (userKey, error) in
                 dispatch_async(dispatch_get_main_queue()) {
                     if let userKey = userKey {
                         self.getStudentData(userKey)

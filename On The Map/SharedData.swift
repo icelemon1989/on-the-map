@@ -12,7 +12,7 @@ class SharedData: NSObject {
     
     //MARK: Properties
     
-    private let ParseClient = parseClient.sharedClient()
+    private let parseClient = ParseClient.sharedClient()
     var studentLocations = [StudentLocation]()
     var currentStudent : Student? = nil
     
@@ -38,15 +38,15 @@ class SharedData: NSObject {
     //MARK: Refresh Student Locations
     
     func refreshStudentLocations() {
-        ParseClient.studentLocations { (studentlocations, error) in
+        parseClient.studentLocations { (studentlocations, error) in
             if error != nil {
                 print("errorrrrrrrrrrrrrr")
-                self.sentDataNotification("\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdatedError)")
+                self.sentDataNotification("\(ParseClient.Methods.StudentLocation)\(ParseClient.Notifications.LocationsUpdatedError)")
             }
             
             if let students = studentlocations {
                 self.studentLocations = students
-                self.sentDataNotification("\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdated)")
+                self.sentDataNotification("\(ParseClient.Methods.StudentLocation)\(ParseClient.Notifications.LocationsUpdated)")
                 print("refreshed studentlocations")
             }
         }

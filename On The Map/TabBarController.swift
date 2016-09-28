@@ -13,22 +13,22 @@ class TabBarController: UITabBarController {
     
     //MARK: Property
     
-    let UdacityClient = udacityClient.sharedClient()
+    let udacityClient = UdacityClient.sharedClient()
     let otmSharedData = SharedData.sharedDataSource()
-    let ParseClient = parseClient.sharedClient()
+    let parseClient = ParseClient.sharedClient()
     
     // MARK: Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarController.studentLocationUpdateError), name: "\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdatedError)", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarController.studentLocationUpdateError), name: "\(ParseClient.Methods.StudentLocation)\(ParseClient.Notifications.LocationsUpdatedError)", object: nil)
     }
     
     //MARK: Actions
     
     @IBAction func logoutButtonPressed(sender: UIBarButtonItem) {
         
-        UdacityClient.logout { (sucess, error) in
+        udacityClient.logout { (sucess, error) in
             performUIUpdatesOnMain({
                 FBSDKLoginManager().logOut()
                 self.dismissViewControllerAnimated(true, completion: nil)
@@ -46,7 +46,7 @@ class TabBarController: UITabBarController {
         //To check if I already have post a link, if do, ask if I want to overwirte,
         //if not, post a new
         if let currentStudent = otmSharedData.currentStudent {
-            ParseClient.studentLocationWithUserKey(currentStudent.uniqueKey, completeHandler: { (location, error) in
+            parseClient.studentLocationWithUserKey(currentStudent.uniqueKey, completeHandler: { (location, error) in
                 performUIUpdatesOnMain({
                     if let location = location {
                         self.displayOverWriteAlert({ (alert) in

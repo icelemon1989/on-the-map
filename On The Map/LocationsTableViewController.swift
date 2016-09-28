@@ -21,7 +21,7 @@ class LocationsTableViewController: UITableViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsTableViewController.studentLocationDidUpdate), name: "\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdatedError)", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsTableViewController.studentLocationDidUpdate), name: "\(ParseClient.Methods.StudentLocation)\(ParseClient.Notifications.LocationsUpdatedError)", object: nil)
         
     }
     

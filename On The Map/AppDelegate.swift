@@ -16,17 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Ensures proper use of the Facebook SDK
-        return facebookClient.setupWithOptions(application, launchOptions: launchOptions)
+        return FacebookClient.setupWithOptions(application, launchOptions: launchOptions)
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         // Handle interaction with the native Facebook app or Safari as part of SSO authorization flow or Facebook dialogs
-        return facebookClient.processURL(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        return FacebookClient.processURL(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Notifies the Facebook SDK events system that the app has launched and, when appropriate, logs an "activated app" event
-        facebookClient.activeApp()
+        FacebookClient.activeApp()
     }
 
 }

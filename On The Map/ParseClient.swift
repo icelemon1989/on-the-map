@@ -8,7 +8,7 @@
 
 import Foundation
 
-class parseClient{
+class ParseClient{
     
     //MARK: Property
     let apiCommon : APICommon
@@ -20,8 +20,8 @@ class parseClient{
     }
     
     //MARK: Singleton Instance
-    private static let shareInstance = parseClient()
-    class func sharedClient() -> parseClient {
+    private static let shareInstance = ParseClient()
+    class func sharedClient() -> ParseClient {
         return shareInstance
     }
     
@@ -132,20 +132,20 @@ class parseClient{
             
             // success
             if let jsonAsDictionary = jsonAsDictionary,
-                let _ = jsonAsDictionary[JSONResponseKeys.ObjectID] as? String {
+                let _ = jsonAsDictionary[JSONResponseKeys.CreatedAt] as? String {
                 completionHandler(success: true, error: nil)
                 print("success posting a new student mediaURL")
                 return
             }
             
-            // known failure
-            if let jsonAsDictionary = jsonAsDictionary,
-                let error = jsonAsDictionary[JSONResponseKeys.Error] as? String {
-                print("jsonAsDictionary is \(jsonAsDictionary)")
-                print("error in jsonAsDictionary: \(error)")
-                completionHandler(success: true, error: self.apiCommon.errorWithStatus(0, description: error))
-                return
-            }
+//            // known failure
+//            if let jsonAsDictionary = jsonAsDictionary,
+//                let error = jsonAsDictionary[JSONResponseKeys.Error] as? String {
+//                print("jsonAsDictionary is \(jsonAsDictionary)")
+//                print("error in jsonAsDictionary: \(error)")
+//                completionHandler(success: true, error: self.apiCommon.errorWithStatus(0, description: error))
+//                return
+//            }
             // unknown failure
             completionHandler(success: false, error: self.apiCommon.errorWithStatus(0, description: Errors.CouldNotPostLocation))
         }

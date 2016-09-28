@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension parseClient {
+extension ParseClient {
     
     //MARK: Components
     struct Components {
@@ -65,6 +65,7 @@ extension parseClient {
         static let Results = "results"
         static let ObjectID = "objectId"
         static let UpdatedAt = "updatedAt"
+        static let CreatedAt = "createdAt"
         static let UniqueKey = "uniqueKey"
         static let FirstName = "firstName"
         static let LastName = "lastName"

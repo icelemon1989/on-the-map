@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension facebookClient {
+extension FacebookClient {
     
     // MARK: Common
     

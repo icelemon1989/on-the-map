@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
     
     //MARK: Properties
     
-    private let ParseClient = parseClient.sharedClient()
+    private let parseClient = ParseClient.sharedClient()
     private let sharedData = SharedData.sharedDataSource()
     
     // MARK: Life Cycle
@@ -27,7 +27,7 @@ class MapViewController: UIViewController {
         
         mapView.delegate = self
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.studentLocationsDidUpdate), name: "\(parseClient.Methods.StudentLocation)\(parseClient.Notifications.LocationsUpdated)", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.studentLocationsDidUpdate), name: "\(ParseClient.Methods.StudentLocation)\(ParseClient.Notifications.LocationsUpdated)", object: nil)
         sharedData.refreshStudentLocations()
     }
     

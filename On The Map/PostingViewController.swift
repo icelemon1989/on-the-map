@@ -33,8 +33,8 @@ class PostingViewController: UIViewController {
     //MARK: Properties
     
     private let omtDataSource : SharedData = SharedData.sharedDataSource()
-    private let UdaictyClient : udacityClient = udacityClient.sharedClient()
-    private let ParseClient : parseClient = parseClient.sharedClient()
+    private let udaictyClient : UdacityClient = UdacityClient.sharedClient()
+    private let parseClient : ParseClient = ParseClient.sharedClient()
     var objectID: String? = nil
     private var placemark: CLPlacemark? = nil
     
@@ -131,22 +131,22 @@ class PostingViewController: UIViewController {
         
         if let objectID = objectID {
             let studentlocation = StudentLocation(objectID: objectID, student: student, location: location)
-            hackyPUT(mediaURL, studentLocation: studentlocation, objectID: objectID, completeHandler: { (success, error) in
-                handlerRequest(error, mediaURL)
-            })
-//            ParseClient.updateStudentLocationWithObjectID(objectID, mediaURL: mediaURL, studentLocation: studentlocation, completionHandler: { (success, error) in
+//            hackyPUT(mediaURL, studentLocation: studentlocation, objectID: objectID, completeHandler: { (success, error) in
 //                handlerRequest(error, mediaURL)
 //            })
+            parseClient.updateStudentLocationWithObjectID(objectID, mediaURL: mediaURL, studentLocation: studentlocation, completionHandler: { (success, error) in
+                handlerRequest(error, mediaURL)
+            })
         } else {
             let newstudentlocation = StudentLocation(objectID: "", student: student, location: location)
             print("newstudentlocation is \(newstudentlocation)")
            
-//            ParseClient.postStudentLocation(mediaURL, studentLocation: newstudentlocation, completionHandler: { (success, error) in
-//                handlerRequest(error, mediaURL)
-//            })
-            hackyPost(mediaURL, studentLocation: newstudentlocation, completeHandler: { (success, error) in
+            parseClient.postStudentLocation(mediaURL, studentLocation: newstudentlocation, completionHandler: { (success, error) in
                 handlerRequest(error, mediaURL)
             })
+//            hackyPost(mediaURL, studentLocation: newstudentlocation, completeHandler: { (success, error) in
+//                handlerRequest(error, mediaURL)
+//            })
         }
     }
     private func hackyPUT(mediaURL: String, studentLocation: StudentLocation, objectID: String, completeHandler: (success: Bool, error: NSError?)->Void) {
@@ -181,13 +181,13 @@ class PostingViewController: UIViewController {
             if let data = data {
                 let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
                 // success
-                if let _ = jsonAsDictionary[parseClient.JSONResponseKeys.UpdatedAt] {
+                if let _ = jsonAsDictionary[ParseClient.JSONResponseKeys.UpdatedAt] {
                     completeHandler(success: true, error: nil)
                     return
                 }
             }
             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-            self.displayAlert(parseClient.Errors.CouldNotUpdateLocation)
+            self.displayAlert(ParseClient.Errors.CouldNotUpdateLocation)
         }
         task.resume()
     }
@@ -222,13 +222,13 @@ class PostingViewController: UIViewController {
             if let data = data {
                 let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
                 // success
-                if let _ = jsonAsDictionary[parseClient.JSONResponseKeys.UpdatedAt] {
+                if let _ = jsonAsDictionary[ParseClient.JSONResponseKeys.CreatedAt] {
                     completeHandler(success: true, error: nil)
                     return
                 }
             }
             print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-            self.displayAlert(parseClient.Errors.CouldNotPostLocation)
+            self.displayAlert(ParseClient.Errors.CouldNotPostLocation)
         }
         task.resume()
     }
