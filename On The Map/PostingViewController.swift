@@ -134,105 +134,84 @@ class PostingViewController: UIViewController {
 //            hackyPUT(mediaURL, studentLocation: studentlocation, objectID: objectID, completeHandler: { (success, error) in
 //                handlerRequest(error, mediaURL)
 //            })
-            parseClient.updateStudentLocationWithObjectID(objectID, mediaURL: mediaURL, studentLocation: studentlocation, completionHandler: { (success, error) in
-                handlerRequest(error, mediaURL)
-            })
+//            parseClient.updateStudentLocationWithObjectID(objectID, mediaURL: mediaURL, studentLocation: studentlocation, completionHandler: { (success, error) in
+//                handlerRequest(error, mediaURL)
+//            })
+                parseClient.hackyPUT(mediaURL, studentLocation: studentlocation, objectID: objectID, completeHandler: { (success, error) in
+                    if error != nil { // Handle error…
+                        self.displayAlert((error?.localizedDescription)!)
+                        handlerRequest(error, mediaURL)
+                    }
+                    
+                    if success {
+                        handlerRequest(nil, mediaURL)
+                    }
+                    self.displayAlert(ParseClient.Errors.CouldNotUpdateLocation)
+                })
         } else {
             let newstudentlocation = StudentLocation(objectID: "", student: student, location: location)
             print("newstudentlocation is \(newstudentlocation)")
-           
-            parseClient.postStudentLocation(mediaURL, studentLocation: newstudentlocation, completionHandler: { (success, error) in
-                handlerRequest(error, mediaURL)
-            })
+            parseClient.hackyPost(mediaURL, studentLocation: newstudentlocation, completeHandler: { (success, error) in
+                if error != nil { // Handle error…
+                    self.displayAlert((error?.localizedDescription)!)
+                    handlerRequest(error, mediaURL)
+                }
+                if success {
+                    handlerRequest(nil, mediaURL)
+                }
+                self.displayAlert(ParseClient.Errors.CouldNotUpdateLocation)
+           })
+//            parseClient.postStudentLocation(mediaURL, studentLocation: newstudentlocation, completionHandler: { (success, error) in
+//                handlerRequest(error, mediaURL)
+//            })
 //            hackyPost(mediaURL, studentLocation: newstudentlocation, completeHandler: { (success, error) in
 //                handlerRequest(error, mediaURL)
 //            })
         }
     }
-    private func hackyPUT(mediaURL: String, studentLocation: StudentLocation, objectID: String, completeHandler: (success: Bool, error: NSError?)->Void) {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation/" + objectID)!)
-        request.HTTPMethod = "PUT"
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        var body :[String: AnyObject] = [:]
-        body["latitude"] = studentLocation.location.latitude
-        body["longitude"] = studentLocation.location.longtitdue
-        body["firstName"] = studentLocation.student.FirstName
-        body["lastName"] = studentLocation.student.LastName
-        body["uniqueKey"] = studentLocation.student.uniqueKey
-        body["mediaURL"] = mediaURL
-        body["mapString"] = studentLocation.location.mapString
-        
-        print ("URL", request)
-        
-        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions())
-//        request.HTTPBody = "{\"uniqueKey\": \"4653568580\", \"firstName\": \"Yang\", \"lastName\": \"Ruan\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://www.wawa.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        print ("request HTTPBody ++++++++++++++++++", request.HTTPBody)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                self.displayAlert((error?.localizedDescription)!)
-                completeHandler(success: false, error: error)
-            }
-            
-            if let data = data {
-                let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
-                // success
-                if let _ = jsonAsDictionary[ParseClient.JSONResponseKeys.UpdatedAt] {
-                    completeHandler(success: true, error: nil)
-                    return
-                }
-            }
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-            self.displayAlert(ParseClient.Errors.CouldNotUpdateLocation)
-        }
-        task.resume()
-    }
     
-    private func hackyPost(mediaURL: String, studentLocation: StudentLocation, completeHandler:(success: Bool, error: NSError?)->Void) {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
-        request.HTTPMethod = "POST"
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        var body :[String: AnyObject] = [:]
-        body["latitude"] = studentLocation.location.latitude
-        body["longitude"] = studentLocation.location.longtitdue
-        body["firstName"] = studentLocation.student.FirstName
-        body["lastName"] = studentLocation.student.LastName
-        body["uniqueKey"] = studentLocation.student.uniqueKey
-        body["mediaURL"] = mediaURL
-        body["mapString"] = studentLocation.location.mapString
-        
-        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions())
-        //request.HTTPBody = "{\"uniqueKey\": \"4653568580\", \"firstName\": \"Yang\", \"lastName\": \"Ruan\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://www.wawa.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
-        
-        print ("request HTTPBody ++++++++++++++++++", request.HTTPBody)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                self.displayAlert((error?.localizedDescription)!)
-                completeHandler(success: false, error: error)
-            }
-            
-            if let data = data {
-                let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
-                // success
-                if let _ = jsonAsDictionary[ParseClient.JSONResponseKeys.CreatedAt] {
-                    completeHandler(success: true, error: nil)
-                    return
-                }
-            }
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
-            self.displayAlert(ParseClient.Errors.CouldNotPostLocation)
-        }
-        task.resume()
-    }
 
+        
+//    private func hackyPost(mediaURL: String, studentLocation: StudentLocation, completeHandler:(success: Bool, error: NSError?)->Void) {
+//        let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
+//        request.HTTPMethod = "POST"
+//        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
+//        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
+//        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//        
+//        var body :[String: AnyObject] = [:]
+//        body["latitude"] = studentLocation.location.latitude
+//        body["longitude"] = studentLocation.location.longtitdue
+//        body["firstName"] = studentLocation.student.FirstName
+//        body["lastName"] = studentLocation.student.LastName
+//        body["uniqueKey"] = studentLocation.student.uniqueKey
+//        body["mediaURL"] = mediaURL
+//        body["mapString"] = studentLocation.location.mapString
+//        
+//        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(body, options: NSJSONWritingOptions())
+//        //request.HTTPBody = "{\"uniqueKey\": \"4653568580\", \"firstName\": \"Yang\", \"lastName\": \"Ruan\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://www.wawa.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".dataUsingEncoding(NSUTF8StringEncoding)
+//        
+//        print ("request HTTPBody ++++++++++++++++++", request.HTTPBody)
+//        let session = NSURLSession.sharedSession()
+//        let task = session.dataTaskWithRequest(request) { data, response, error in
+//            if error != nil { // Handle error…
+//                self.displayAlert((error?.localizedDescription)!)
+//                completeHandler(success: false, error: error)
+//            }
+//            
+//            if let data = data {
+//                let jsonAsDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments) as! [String:AnyObject]
+//                // success
+//                if let _ = jsonAsDictionary[ParseClient.JSONResponseKeys.CreatedAt] {
+//                    completeHandler(success: true, error: nil)
+//                    return
+//                }
+//            }
+//            print(NSString(data: data!, encoding: NSUTF8StringEncoding))
+//            self.displayAlert(ParseClient.Errors.CouldNotPostLocation)
+//        }
+//        task.resume()
+//    }
 
     // MARK: Display Alert
 
